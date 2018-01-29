@@ -12,6 +12,9 @@ use app\api\model\User as UserModel;
 use app\api\validate\AddressNew;
 use app\api\validate\SuccessMessage;
 use app\api\validate\UserException;
+use app\lib\enum\ScopeEnum;
+use app\lib\exception\ForbiddenException;
+use app\lib\exception\TokenException;
 use think\Controller;
 use app\api\service\Token as TokenServer;
 
@@ -25,7 +28,17 @@ class Address extends Controller
 
     protected function checkPrimaryScope()
     {
-
+        //$scope也有可能是控制
+        $scope = TokenServer::getCurrentTokenVar('scope');
+        if($scope){
+            if($scope >= ScopeEnum::App_User) {
+                return true;
+            }else{
+                throw new ForbiddenException();
+            }
+        }else{
+            throw new TokenException();
+        }
     }
 
 

@@ -35,4 +35,9 @@ class Token extends Controller
             'token' =>  $wxToken,
         ];
     }
+
+    public function test()
+    {
+        return \app\api\service\Token::getCurrentTokenVar(1);
+    }
 }

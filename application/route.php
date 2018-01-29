@@ -51,8 +51,9 @@ Route::post('indexInfo/indexInfo/adminInfon', 'api/Index/index');
 Route::post('api/:vision/address', 'api/:vision.Address/createOrUpdateAddress');
 
 
-//前置方法测试
-Route::get('api/:vision/before_action_list/second', 'api/:vision.Address/second');
-Route::get('api/:vision/before_action_list/three', 'api/:vision.Address/three');
+//订单路由
+Route::group('api/:vision/order', function(){
+    Route::post('', 'api/:vision.Order/placeOrder');
+});
 
 
